@@ -1,0 +1,30 @@
+{
+  "name": "serverless-memory-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielesalvatore/serverless-memory-game.git"
+  },
+  "author": "Daniele Salvatore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielesalvatore/serverless-memory-game/issues"
+  },
+  "homepage": "https://github.com/danielesalvatore/serverless-memory-game#readme",
+  "dependencies": {
+    "aws-sdk": "^2.156.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "serverless-http": "^1.5.2"
+  },
+  "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.26",
+    "serverless-offline": "^3.16.0"
+  }
+}

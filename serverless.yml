@@ -1,0 +1,84 @@
+# serverless.yml
+
+service: serverless-memory-game
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-east-1
+  apiKeys:
+    - MemoryGameApiKey
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["MemoryDynamoDBTable", "Arn" ] }
+
+  environment:
+    SCORES_TABLE: ${self:custom.tableName}
+
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http:
+          path: '/'
+          method: 'GET'
+          cors: true
+          private: true
+
+  getScores:
+    handler: index.handler
+    events:
+      - http:
+          path: '/scores'
+          method: 'GET'
+          cors: true
+          private: true
+
+  createScore:
+    handler: index.handler
+    events:
+      - http:
+          path: '/scores'
+          method: 'POST'
+          cors: true
+          private: true
+
+resources:
+  Resources:
+    MemoryDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: scoreId
+            AttributeType: S
+          - AttributeName: time
+            AttributeType: N
+        KeySchema:
+          - AttributeName: scoreId
+            KeyType: HASH
+          - AttributeName: time
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline #serverless-offline needs to be last in the list
+
+custom:
+  tableName: 'memory-game-${self:provider.stage}'
+  dynamodb:
+    start:
+      migrate: true
