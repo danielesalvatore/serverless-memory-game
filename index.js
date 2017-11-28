@@ -18,7 +18,7 @@ if (IS_OFFLINE === 'true') {
 
     dynamoDb = new AWS.DynamoDB.DocumentClient({
         region: 'localhost',
-        endpoint: 'http://localhost:8000'
+        endpoint: 'http://0.0.0.0:8000'
     });
     console.log(dynamoDb);
 }

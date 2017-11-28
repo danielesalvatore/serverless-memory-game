@@ -1,0 +1,60 @@
+version: 2
+
+jobs:
+  unit_test:
+    docker:
+      - image: node:6.12.0-stretch-browsers
+
+    steps:
+
+      - checkout
+
+      # restore cached dependencies
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run: npm install
+
+      # cache dependencies
+      - save_cache:
+         key: dependency-cache-{{ checksum "package.json" }}
+         paths:
+           - node_modules
+
+      # build Docker image
+      - run: |
+          TAG=$CIRCLE_BUILD_NUM
+          USERNAME=danielesalvatore
+          REPO=serverless-memory-game
+          docker build -t $USERNAME/$REPO:$TAG .
+          docker run -d -p 3000:3000 $USERNAME/$REPO:$TAG
+
+      # run tests!
+      - run: npm test
+
+  deployment_aws:
+    docker:
+      - image: nbphuoc/node-8-aws-browser:latest
+
+    steps:
+
+      - deploy:
+          name: Deploy to AWS if tests pass and branch is Master
+          command:  sls deploy
+
+workflows:
+
+  version: 2
+  
+  test_and_deploy:
+
+    jobs:
+
+      - unit_test
+
+      - deployment_aws:
+          requires:
+            - unit_test
+          filters:
+            branches:
+              only: master

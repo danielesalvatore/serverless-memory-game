@@ -24,7 +24,6 @@ provider:
   environment:
     SCORES_TABLE: ${self:custom.tableName}
 
-
 functions:
   app:
     handler: index.handler
@@ -82,3 +81,5 @@ custom:
   dynamodb:
     start:
       migrate: true
+  serverless-offline:
+      host: 0.0.0.0
