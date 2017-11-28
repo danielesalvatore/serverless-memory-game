@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test';
 
+let axios = require('axios');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let expect = chai.expect;
-let HOST = "http://0.0.0.0:3000";
+let HOST = "http://localhost:3000";
 
 chai.use(chaiHttp);
 
@@ -18,25 +19,35 @@ describe('Scores', () => {
                 name: "Dani"
             };
 
-            chai.request(HOST)
-                .post('/scores')
-                .send(Item)
-                .end((err, res) => {
-                    expect(res.body.name).to.equal(Item.name);
+            axios.post(HOST + '/scores', Item)
+                .then(res => {
+                    console.log("DANI")
+
+                    expect(res.data.name).to.equal(Item.name);
                     done();
-                });
+                }).catch(error => {
+                console.log("DANI ERROR")
+
+                console.log(error);
+                done();
+            });
         });
     });
 
     describe('/GET scores', () => {
         it('it should GET all the scores', (done) => {
-            chai.request(HOST)
-                .get('/scores')
-                .end((err, res) => {
-                    expect(res.statusCode).to.equal(200);
-                    expect(res.body.Items.length).not.to.equal(0);
+            axios.get(HOST + '/scores')
+                .then(res => {
+                    console.log("DANI")
+                    expect(res.status).to.equal(200);
+                    expect(res.data.Items.length).not.to.equal(0);
                     done();
-                });
+                }).catch(error => {
+                console.log("DANI ERROR")
+
+                console.log(error);
+                done();
+            });
         });
     });
 

@@ -12,12 +12,8 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:Query
         - dynamodb:Scan
-        - dynamodb:GetItem
         - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["MemoryDynamoDBTable", "Arn" ] }
 
@@ -77,6 +73,7 @@ plugins:
   - serverless-offline #serverless-offline needs to be last in the list
 
 custom:
+  webpack: ./webpack.config.js
   tableName: 'memory-game-${self:provider.stage}'
   dynamodb:
     start:
