@@ -69,6 +69,7 @@ resources:
         TableName: ${self:custom.tableName}
 
 plugins:
+  - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline #serverless-offline needs to be last in the list
 
