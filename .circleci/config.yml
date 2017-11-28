@@ -39,7 +39,7 @@ jobs:
       - save_cache:
          key:  react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
          paths:
-          - .
+          - ./
 
   deployment_aws:
 
