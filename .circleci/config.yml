@@ -3,9 +3,13 @@ version: 2
 jobs:
   unit_test:
 
+    working_directory: ~/app
+
     machine: true
 
     steps:
+
+      - run: pwd
 
       - checkout
 
@@ -35,9 +39,11 @@ jobs:
       # run tests!
       - run: npm test
 
+      - run: ls ~/app
+
       # cache build folder for deployment step
       - save_cache:
-         key:  react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
+         key:  serverless-memory-game-{{ .Environment.CIRCLE_SHA1 }}
          paths:
           - ~/app
 
@@ -51,7 +57,7 @@ jobs:
     steps:
 
       - restore_cache:
-          key: react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
+          key: serverless-memory-game-{{ .Environment.CIRCLE_SHA1 }}
 
       - run: ls -al
 
