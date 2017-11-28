@@ -42,6 +42,9 @@ jobs:
           - .
 
   deployment_aws:
+
+    working_directory: ~/repo
+
     docker:
       - image: jimdo/serverless-offline
 
@@ -51,7 +54,7 @@ jobs:
 
       - deploy:
           name: Deploy to AWS if tests pass and branch is Master
-          command:  sls deploy
+          command: sls deploy
 
 workflows:
 
@@ -66,6 +69,3 @@ workflows:
       - deployment_aws:
           requires:
             - unit_test
-          filters:
-            branches:
-              only: master
