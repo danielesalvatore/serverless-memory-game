@@ -75,3 +75,6 @@ workflows:
       - deployment_aws:
           requires:
             - unit_test
+          filters:
+            branches:
+              only: master
