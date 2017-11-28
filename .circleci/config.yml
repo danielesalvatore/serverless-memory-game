@@ -43,18 +43,21 @@ jobs:
 
   deployment_aws:
 
-    working_directory: ~/repo
+    working_directory: ~/
 
     docker:
       - image: jimdo/serverless-offline
 
     steps:
+
+      - run: ls -al
+
       - restore_cache:
           key: react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
 
       - deploy:
           name: Deploy to AWS if tests pass and branch is Master
-          command: sls deploy
+          command: sls deploy --package ~/
 
 workflows:
 
