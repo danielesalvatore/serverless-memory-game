@@ -39,11 +39,11 @@ jobs:
       - save_cache:
          key:  react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
          paths:
-          - ./
+          - ~/app
 
   deployment_aws:
 
-    working_directory: ~/
+    working_directory: ~/app
 
     docker:
       - image: jimdo/serverless-offline
