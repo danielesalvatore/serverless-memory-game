@@ -30,7 +30,7 @@ jobs:
           docker run -d -p 3000:3000 -p 8000:8000 -e AWS_ACCESS_KEY_ID=fake -e AWS_SECRET_ACCESS_KEY=fake --name server $USERNAME/$REPO:$TAG
 
       # wait for container to start
-      - run: for i in 1 2 3 4 5; do curl --retry 10 --retry-delay 2 http://localhost:3000 && break || sleep 15; done
+      - run: for i in 1 2 3 4 5; do curl --retry 10 --retry-delay 2 http://localhost:3000 && break || sleep 10; done
 
       # run tests!
       - run: npm test
@@ -50,10 +50,10 @@ jobs:
 
     steps:
 
-      - run: ls -al
-
       - restore_cache:
           key: react-memory-game-{{ .Environment.CIRCLE_SHA1 }}
+
+      - run: ls -al
 
       - deploy:
           name: Deploy to AWS if tests pass and branch is Master
