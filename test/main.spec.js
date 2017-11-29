@@ -21,12 +21,11 @@ describe('Scores', () => {
 
             axios.post(HOST + '/scores', Item)
                 .then(res => {
-                    console.log("DANI")
 
                     expect(res.data.name).to.equal(Item.name);
                     done();
                 }).catch(error => {
-                console.log("DANI ERROR")
+                expect(false).to.equal(true); //force error
 
                 console.log(error);
                 done();
@@ -38,12 +37,11 @@ describe('Scores', () => {
         it('it should GET all the scores', (done) => {
             axios.get(HOST + '/scores')
                 .then(res => {
-                    console.log("DANI")
                     expect(res.status).to.equal(200);
                     expect(res.data.Items.length).not.to.equal(0);
                     done();
                 }).catch(error => {
-                console.log("DANI ERROR")
+                expect(false).to.equal(true); //force error
 
                 console.log(error);
                 done();
