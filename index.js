@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const AWS = require('aws-sdk');
+const Uuid = require("node-uuid");
 
 const SCORES_TABLE = process.env.SCORES_TABLE;
 const IS_OFFLINE = process.env.IS_OFFLINE;
@@ -50,10 +51,7 @@ app.get('/scores', function (req, res) {
 
 app.post('/scores', function (req, res) {
 
-    const {scoreId} = req.body;
-    if (typeof scoreId !== 'string') {
-        res.status(400).json({error: '"scoreId" must be a string'});
-    }
+    req.body.scoreId = Uuid.v4();
 
     const params = {
         TableName: SCORES_TABLE,
