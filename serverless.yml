@@ -9,6 +9,15 @@ provider:
   region: us-east-1
   apiKeys:
     - MemoryGameApiKey
+  usagePlan:
+      quota:
+        limit: 99999
+        offset: 2
+        period: MONTH
+      throttle:
+        burstLimit: 200
+        rateLimit: 100
+
   iamRoleStatements:
     - Effect: Allow
       Action:
