@@ -37,7 +37,8 @@ app.get('/', function (req, res) {
 
 app.get('/scores', function (req, res) {
     const params = {
-        TableName: SCORES_TABLE
+        TableName: SCORES_TABLE,
+        Limit: 10
     };
 
     dynamoDb.scan(params, (error, result) => {
