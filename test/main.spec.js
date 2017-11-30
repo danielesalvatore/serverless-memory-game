@@ -16,19 +16,19 @@ describe('Scores', () => {
             let Item = {
                 scoreId: "test",
                 time: 200,
-                name: "Dani"
+                name: "Dani",
+                type: "score"
             };
 
             axios.post(HOST + '/scores', Item)
                 .then(res => {
-
                     expect(res.data.name).to.equal(Item.name);
                     done();
                 }).catch(error => {
-
+                console.log(error);
                 expect(false).to.equal(true); //force error
 
-                console.log(error);
+
                 done();
             });
         });
@@ -43,7 +43,6 @@ describe('Scores', () => {
                     done();
                 }).catch(error => {
                 expect(false).to.equal(true); //force error
-
                 console.log(error);
                 done();
             });
