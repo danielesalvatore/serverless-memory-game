@@ -25,6 +25,7 @@ describe('Scores', () => {
                     expect(res.data.name).to.equal(Item.name);
                     done();
                 }).catch(error => {
+
                 expect(false).to.equal(true); //force error
 
                 console.log(error);
