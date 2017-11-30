@@ -37,7 +37,7 @@ functions:
           path: '/'
           method: 'GET'
           cors: true
-          private: true
+          #private: true
 
   getScores:
     handler: index.handler
@@ -46,7 +46,7 @@ functions:
           path: '/scores'
           method: 'GET'
           cors: true
-          private: true
+          #private: true
 
   createScore:
     handler: index.handler
@@ -55,7 +55,7 @@ functions:
           path: '/scores'
           method: 'POST'
           cors: true
-          private: true
+          #private: true
 
 resources:
   Resources:
